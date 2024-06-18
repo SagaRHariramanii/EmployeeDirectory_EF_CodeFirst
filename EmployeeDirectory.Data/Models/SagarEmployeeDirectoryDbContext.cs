@@ -8,11 +8,6 @@ public partial class SagarEmployeeDirectoryDbContext : DbContext
     {
     }
 
-    public SagarEmployeeDirectoryDbContext(DbContextOptions<SagarEmployeeDirectoryDbContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }

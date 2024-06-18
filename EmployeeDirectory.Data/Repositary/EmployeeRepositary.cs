@@ -1,9 +1,9 @@
 ﻿using EmployeeDirectory.Data.Contract;
 using EmployeeDirectory.Data.Models;
 
-namespace EmployeeDirectory.Data
+namespace EmployeeDirectory.Data.Repositary
 {
-    public class EmployeeHandler : IEmployeeHandler
+    public class EmployeeRepositary : IEmployeeRepositary
     {
         public void AddEmployee(Employee employee)
         {
@@ -17,26 +17,26 @@ namespace EmployeeDirectory.Data
         }
         public List<Employee> GetEmployees()
         {
-            using (var context=new SagarEmployeeDirectoryDbContext())
+            using (var context = new SagarEmployeeDirectoryDbContext())
             {
-                List<Employee> employees = context.Employees.Where(e=>e.IsDeleted!=true).ToList();
+                List<Employee> employees = context.Employees.Where(e => e.IsDeleted != true).ToList();
                 return employees;
             }
         }
 
         public Employee? GetEmployeeById(string empId)
         {
-            using(var context=new SagarEmployeeDirectoryDbContext())
+            using (var context = new SagarEmployeeDirectoryDbContext())
             {
-                Employee? emp=context.Employees.FirstOrDefault(e=>e.EmpId == empId && !e.IsDeleted);
+                Employee? emp = context.Employees.FirstOrDefault(e => e.EmpId == empId && !e.IsDeleted);
                 return emp;
             }
         }
         public void Update<T>(string empId, Enum fieldName, T fieldInputData)
         {
-            using(var context = new SagarEmployeeDirectoryDbContext())
+            using (var context = new SagarEmployeeDirectoryDbContext())
             {
-                Employee emp = context.Employees.FirstOrDefault(e=>e.EmpId == empId && !e.IsDeleted)!;
+                Employee emp = context.Employees.FirstOrDefault(e => e.EmpId == empId && !e.IsDeleted)!;
                 var propertyInfo = typeof(Employee).GetProperty(fieldName.ToString())!;
                 propertyInfo.SetValue(emp, fieldInputData);
                 emp.UpdatedOn = DateTime.UtcNow;
@@ -46,9 +46,9 @@ namespace EmployeeDirectory.Data
         }
         public void Delete(string empId)
         {
-            using(var context =new SagarEmployeeDirectoryDbContext())
+            using (var context = new SagarEmployeeDirectoryDbContext())
             {
-                Employee emp = context.Employees.FirstOrDefault(e=> e.EmpId == empId && !e.IsDeleted)!;
+                Employee emp = context.Employees.FirstOrDefault(e => e.EmpId == empId && !e.IsDeleted)!;
                 emp.IsDeleted = true;
                 context.SaveChanges();
             }

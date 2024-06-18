@@ -10,9 +10,9 @@ namespace EmployeeDirectory.Services.Common
 {
     public class ValidationService : IValidationService
     {
-        IEmployeeHandler _employeeHandler;
+        IEmployeeRepositary _employeeHandler;
         IMapper _mapper;
-        public ValidationService(IEmployeeHandler employeeHandler,IMapper mapper)
+        public ValidationService(IEmployeeRepositary employeeHandler,IMapper mapper)
         {
             this._employeeHandler = employeeHandler;
             this._mapper = mapper;
